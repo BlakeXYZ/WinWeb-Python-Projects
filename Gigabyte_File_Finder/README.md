@@ -1,6 +1,5 @@
 
 <h2>General Info</h2>
-_____________________________________________
 <h4>This script helps you find hidden/unwanted bloated files inside Win OS by walking pasted Path and printing 1gb+ files</h4>
 
 
@@ -8,9 +7,7 @@ _____________________________________________
 
 --Packaged as .exe through PyInstaller
 
-
-DEMO
-
+<h2>DEMO</h2>
 ![gb_file_finder_Demo](https://github.com/BlakeXYZ/WinWeb-Python-Projects/assets/37947050/0cfd72ac-3d24-435f-8f90-e35a7fb7c663)
 
 
