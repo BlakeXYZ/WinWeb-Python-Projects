@@ -1,6 +1,6 @@
 
 <h2>General Info</h2>
-<h4>This script helps you find hidden/unwanted bloated files inside Win OS by walking pasted Path and sharing 1gb+ files</h4>
+<h4>This script helps you find hidden/unwanted bloated files inside Win OS by walking pasted Path and sharing clickable links to 1gb+ files</h4>
 
 
 --Using Python 3.9.7, PyQt5 + QtDesigner
