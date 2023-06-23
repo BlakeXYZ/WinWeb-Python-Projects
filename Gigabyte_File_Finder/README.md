@@ -4,6 +4,7 @@
 
 
 --Using Python 3.9.7, PyQt5 + QtDesigner
+
 --Packaged as .exe through PyInstaller
 
 
