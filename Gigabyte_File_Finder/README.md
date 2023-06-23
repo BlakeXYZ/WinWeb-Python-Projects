@@ -1,3 +1,6 @@
+
+<h2>General Info</h2>
+_____________________________________________
 <h4>This script helps you find hidden/unwanted bloated files inside Win OS by walking pasted Path and printing 1gb+ files</h4>
 
 
