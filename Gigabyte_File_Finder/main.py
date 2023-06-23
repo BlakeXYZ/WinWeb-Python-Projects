@@ -36,7 +36,8 @@ class mainWindow(QMainWindow):
 
 
         for dirpath, dirnames, filenames in os.walk(pathToWalk):
-            byte_size = round(0, 2)
+            # Set File Size Var
+            byte_size = 0
 
             for filename in filenames:
                 file_path = os.path.join(dirpath, filename)
