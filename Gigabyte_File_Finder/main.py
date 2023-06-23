@@ -78,13 +78,15 @@ class mainWindow(QMainWindow):
     def eventFilter(self, obj, event):
         ## check if the target object of the event is
         # viewport of self.myOutputText and if event type is MouseButtonPress. 
-        if obj == self.myOutputText.viewport() and event.type() == QEvent.MouseButtonPress:
-            anchor = self.myOutputText.anchorAt(event.pos())
-            if anchor:
-                QDesktopServices.openUrl(QUrl.fromLocalFile(anchor))
-
-
-        return super().eventFilter(obj, event)
+        if not (obj == self.myOutputText.viewport() and event.type() == QEvent.MouseButtonPress):
+            return False
+        
+        anchor = self.myOutputText.anchorAt(event.pos())
+        if not anchor:
+            return False
+        
+        QDesktopServices.openUrl(QUrl.fromLocalFile(anchor))
+        return True
 
 
     def reset_text(self):                                                                   ## RESET BUTTON
