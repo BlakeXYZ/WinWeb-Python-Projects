@@ -1,4 +1,3 @@
-# Misc-Python-Projects
 <h3>A Sandbox of Python Projects built to automate Win OS and Web Tasks</h3>
 
 ---
