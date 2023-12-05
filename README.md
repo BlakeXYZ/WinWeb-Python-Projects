@@ -9,7 +9,7 @@
 <br>
 
 <p align="center">
-<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/assets/37947050/506423f7-38a1-4033-a876-64afd477ff8a" width="700">
+<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/assets/37947050/506423f7-38a1-4033-a876-64afd477ff8a">
 </p>
 </details>
 
