@@ -1,6 +1,7 @@
 from pathlib import Path
 import time
 import json
+import os 
 
 import cv2
 import easyocr
@@ -19,144 +20,147 @@ import matplotlib.pyplot as plt
 class ValidationError(Exception):
     pass
 
-####################################################################
 '''
 Load and Read JSON Database
 '''
+def load_and_read_db() -> tuple:
+    # read DB
+    db_path = str(Path.cwd() / 'db' / 'scryfall-bulk-data.json')
+    print(db_path)
 
-# read DB
-db_path = str(Path.cwd() / 'db' / 'scryfall-bulk-data.json')
-print(db_path)
+    try:
+        with open(db_path, "r", encoding='utf-8') as json_file:
+            db_data = json.load(json_file)
+        print(f"Success with reading file")
 
-try:
-    with open(db_path, "r", encoding='utf-8') as json_file:
-        db_data = json.load(json_file)
-    print(f"Success with reading file")
-
-except (FileNotFoundError, json.decoder.JSONDecodeError):
-    raise ValidationError(f'Unable to load the JSON file.')
-
-
-# read scanned DB
-scanned_card_db_path = str(Path.cwd() / 'db' / 'scanned_card_data.json')
-print(scanned_card_db_path)
-
-try:
-
-    with open(scanned_card_db_path, "r") as scanned_card_json_file:
-        scanned_card_data = json.load(scanned_card_json_file)
-    print(f"Success with reading file")
-
-except (FileNotFoundError, json.decoder.JSONDecodeError):
-    raise ValidationError(f'Unable to load the JSON file.')
+    except (FileNotFoundError, json.decoder.JSONDecodeError):
+        raise ValidationError(f'Unable to load the JSON file.')
 
 
+    # read scanned DB
+    scanned_card_db_path = str(Path.cwd() / 'db' / 'scanned_card_data.json')
+    print(scanned_card_db_path)
 
+    try:
 
+        with open(scanned_card_db_path, "r") as scanned_card_json_file:
+            scanned_card_data = json.load(scanned_card_json_file)
+        print(f"Success with reading file")
 
-# ####################################################################
-'''
-Read Card Text
-'''
+    except (FileNotFoundError, json.decoder.JSONDecodeError):
+        raise ValidationError(f'Unable to load the JSON file.')
+    
+    return db_data, scanned_card_data, scanned_card_db_path
 
 '''
-Store Card Text + Confidence
+Read Card Text + Store Card Text/Confidence
 '''
 
+def scan_img_library() -> dict:
 
-# # Record the start time
-# start_time = time.time()
+    DICT_scan_img_library = {}
 
-# # read img
-# img_name = "img_03.jpg"
-# img_path = str(Path.cwd() / 'images' / img_name)
+    # Record the start time
+    start_time = time.time()
 
-# # Read only a section of the image (you can adjust these values)
-# x, y, w, h = 0, 0, 5000, 1000
-# my_img = cv2.imread(img_path)[y:y+h, x:x+w]
+    # set path
+    img_dir = str(Path.cwd() / 'images')
 
-# # instance text detector
-# reader = easyocr.Reader(['en'], gpu=False)
+    # instance text detector
+    reader = easyocr.Reader(['en'], gpu=False)
 
-# # detect text on img
-# my_text = reader.readtext(my_img)
+    # Read image and store my_text info inside dict
+    for img in os.listdir(img_dir):
+        if img.endswith(('.jpg', '.jpeg', '.png')):  # Filter only image files
+            # set full img path
+            img_path = os.path.join(img_dir, img)
+    
+            # Read the img path
+            my_img = cv2.imread(img_path)
 
-# threshold = 0.25
+            # Detect text on img
+            my_text = reader.readtext(my_img)
 
-# # draw bbox and text
-# for t in my_text:
-#     print(t)
+            threshold = 0.25
 
-#     bbox, text, score =  t
+            # store my_text info inside dict
+            for t in my_text:
+                print(t)
 
-# #     if score > threshold:
-# #         cv2.rectangle(my_img, bbox[0], bbox[2], (0, 255, 0), 10)
-# #         cv2.putText(my_img, text, bbox[0], cv2.FONT_HERSHEY_COMPLEX, 2, (255, 255, 255), 15)
-# #         cv2.putText(my_img, text, bbox[0], cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0), 3)
+                bbox, text, score =  t
+                rounded_score = round(score, 2)
 
-# # plt.imshow(cv2.cvtColor(my_img, cv2.COLOR_BGR2RGB))
+                if score > threshold:
+                    print(text)
 
-# # Record the end time
-# end_time = time.time()
-# elapsed_time = end_time - start_time
-# print(f"Time elapsed: {elapsed_time} seconds")
+                    DICT_scan_img_library[text] = {
+                        'Confidence' : rounded_score
+                    }
 
-# # plt.show()
+                # Break out of the loop after processing the first element
+                break
 
+    # Record the end time
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"Total time elapsed: {elapsed_time} seconds")
 
+    print(DICT_scan_img_library)
+    return DICT_scan_img_library
 
-# ####################################################################
     
 '''
 Get Matching Field in DB with Card Text
 '''
-
-# Specify the variable name you are looking for
-desired_variable_name = "Legolas's Quick Reflexes"  # Replace with the variable name you are looking for
-
-# Find the card with the specified variable name
-matching_card = None
-for card_entry in db_data:
-    card_name = card_entry.get("name", "").strip()
-    if card_name == desired_variable_name:
-        matching_card = card_entry
-        break
-
-
-'''
-Store Matching Field Data in DICT
-'''
-
-DICT_card_info = {}
-
-# Display the results
-if matching_card:
-
-    DICT_card_info[matching_card.get('name')] = {
-        'USD Price': matching_card.get('prices', {}).get('usd'),
-        'Rarity': matching_card.get("rarity"),
-        'URL Link': matching_card.get("scryfall_uri"),
-    }
     
-else:
-    print(f"No card found with the name: {desired_variable_name}")
+def get_matching_card_db_entity(db_data, scanned_card_data, scanned_card_db_path, DICT_scan_img_library):
 
-print(DICT_card_info)
+    DICT_card_info = {}
 
+    for stored_card_name, card_info in DICT_scan_img_library.items():
 
+        confidence_value = card_info.get("Confidence")
+    
+        # Find the card with the specified variable name
+        matching_card = None
+        for card_entry in db_data:
+            card_name = card_entry.get("name", "").strip()
+            if card_name == stored_card_name:
+                matching_card = card_entry
+                break
 
-'''
-Write to own DB
-'''
+        '''
+        Store Matching Field Data in DICT
+        '''
+        # Display the results
+        if matching_card:
 
-# Update scanned_card_db_path in the JSON file
+            DICT_card_info[matching_card.get('name')] = {
+                'USD Price': matching_card.get('prices', {}).get('usd'),
+                'Rarity': matching_card.get("rarity"),
+                'URL Link': matching_card.get("scryfall_uri"),
+                'Confidence Value' : confidence_value,
+            }
+        else:
+            print(f"No card found with the name: {stored_card_name}")
 
-scanned_card_data.update(DICT_card_info)
+    print(DICT_card_info)
 
-with open(scanned_card_db_path, "w") as json_file:
-        json.dump(scanned_card_data, json_file, indent=4)  # The indent parameter adds pretty-printing for better readability
+    # Update scanned_card_db_path in the JSON file
 
+    scanned_card_data.update(DICT_card_info)
 
+    with open(scanned_card_db_path, "w") as json_file:
+            json.dump(scanned_card_data, json_file, indent=4)  # The indent parameter adds pretty-printing for better readability
+
+def main():
+    db_data, scanned_card_data, scanned_card_db_path = load_and_read_db()
+    DICT_scan_img_library = scan_img_library()
+    get_matching_card_db_entity(db_data, scanned_card_data, scanned_card_db_path, DICT_scan_img_library)
+
+    
+if __name__ == "__main__":
+    main()
 
 
 
