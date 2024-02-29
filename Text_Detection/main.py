@@ -100,6 +100,7 @@ def scan_img_library() -> dict:
                 # Break out of the loop after processing the first element
                 break
 
+
     # Record the end time
     end_time = time.time()
     elapsed_time = end_time - start_time
@@ -116,6 +117,7 @@ Get Matching Field in DB with Card Text
 def get_matching_card_db_entity(db_data, scanned_card_data, scanned_card_db_path, DICT_scan_img_library):
 
     DICT_card_info = {}
+    LIST_all_card_info = []
 
     for stored_card_name, card_info in DICT_scan_img_library.items():
 
@@ -135,20 +137,32 @@ def get_matching_card_db_entity(db_data, scanned_card_data, scanned_card_db_path
         # Display the results
         if matching_card:
 
-            DICT_card_info[matching_card.get('name')] = {
-                'USD Price': matching_card.get('prices', {}).get('usd'),
-                'Rarity': matching_card.get("rarity"),
-                'URL Link': matching_card.get("scryfall_uri"),
-                'Confidence Value' : confidence_value,
+            DICT_card_info = {
+                'name': matching_card.get('name'),
+                'usdPrice': matching_card.get('prices', {}).get('usd'),
+                'rarity': matching_card.get("rarity"),
+                'urlLink': matching_card.get("scryfall_uri"),
+                'urlThumbnailImage' : matching_card.get(f"image_uris", {}).get('normal'),
+                'confidenceValue' : confidence_value,
             }
+
+            LIST_all_card_info.append(DICT_card_info)
+
         else:
             print(f"No card found with the name: {stored_card_name}")
 
-    print(DICT_card_info)
 
-    # Update scanned_card_db_path in the JSON file
 
-    scanned_card_data.update(DICT_card_info)
+    print(LIST_all_card_info)
+
+    # # Update scanned_card_db_path in the JSON file
+    for new_card in LIST_all_card_info:
+        existing_card = next((card for card in scanned_card_data if card['name'] == new_card['name']), None)
+        if existing_card:
+            existing_card.update(new_card)
+        else:
+            scanned_card_data.append(new_card)
+
 
     with open(scanned_card_db_path, "w") as json_file:
             json.dump(scanned_card_data, json_file, indent=4)  # The indent parameter adds pretty-printing for better readability
