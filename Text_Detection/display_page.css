@@ -33,7 +33,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 8px; /* Rounded corners for the .container */
     overflow: hidden; /* Ensure rounded corners are applied properly */
-    transition: transform 0.3s ease-in-out; /* Add a smooth transition effect */
+    transition: transform 0.3s ease-in-out,  box-shadow 0.3s ease-in-out; ; /* Add a smooth transition effect */
 }
 
 .text-container {
@@ -41,11 +41,12 @@ body {
 
     display: none;
     position: absolute;
-    top: 105%; /* Position it below the container */
+    top: 108%; /* Position it below the container */
     width: 165px; /* Set your desired width */
 
     
     padding: 20px; /* Adjust padding as needed */
+    padding-top: 7px;
     transition: height 0.3s ease-in-out;
     height: 0; /* Start with height 0 */
 
@@ -68,9 +69,12 @@ body {
 
 .container:hover img {
     transform: scale(1.1); /* Increase the size on hover */
+    box-shadow: 0 0 25px 5px rgb(0, 0, 0); /* Add a drop shadow on hover */
 
 }
 
 .container img:hover {
     transform: scale(1.1); /* Increase the size on hover */
+    box-shadow: 0 0 25px 5px rgb(0, 0, 0); /* Add a drop shadow on hover */
+
 }
