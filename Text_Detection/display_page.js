@@ -34,6 +34,8 @@ const displayData = async (data) => {
     display_data.innerHTML = dataDisplay;
 }
 
+////////////////////////////////////////////////////////////////////                                          SORT DATA functions
+
 
 const sortData = (data, key) => {
 
@@ -82,20 +84,39 @@ const sortData = (data, key) => {
     });
 };
 
-const handleSortChange = async () => {
-    const data = await getData();
+
+//////////////////////////////////////////////////////////////////////                                        HANDLE sort + search filter    
+
+
+const handleSortOrSearchChange = async () => {
+
     const sortDropdown = document.getElementById('sort-dropdown');
     const selectedKey = sortDropdown.value;
-    
-    const sortedData = sortData(data, selectedKey);
-    
-    console.log('printing sorted data:');
-    console.log(sortedData);
 
-    displayData(sortedData);
-};
+    const searchString = document.getElementById('search-input').value.toLowerCase(); // Convert to lowercase for case-insensitive search
 
-// Initial display
+    const data = await getData();
+
+    // Handle sorting
+    if (selectedKey) {
+        resultData = sortData(data, selectedKey);
+        console.log(`Sorted Data (${selectedKey}):`, resultData);
+    }
+
+    // Handle searching
+    if (searchString) {
+        resultData = resultData.filter(item => item.name.toLowerCase().includes(searchString));
+        console.log('Filtered Data:', resultData);
+    }
+
+    // Display the final result
+    displayData(resultData || data);
+
+
+}
+
+//////////////////////////////////////////////////////////////////////                                          initialize Display 
+
 const initializeDisplay = async () => {
     try {
         const data = await getData();
@@ -107,54 +128,9 @@ const initializeDisplay = async () => {
     }
 }
 
-
-// Add event listener to the dropdown for immediate sorting
-const sortDropdown = document.getElementById('sort-dropdown');
-sortDropdown.addEventListener('change', handleSortChange);
-
+document.getElementById('search-input').addEventListener('keyup', handleSortOrSearchChange);
+document.getElementById('sort-dropdown').addEventListener('change', handleSortOrSearchChange);
 
 // Call initializeDisplay to fetch and display initial data
 initializeDisplay();
 
-
-// const my_apiEndpoint = "https://jsonplaceholder.typicode.com/users";
-// const display_data = document.querySelector('#display-data');
-
-// const getData = async () => {
-//     // Fetch method to fetch Data
-//     const res = await fetch(my_apiEndpoint);
-
-//     // check if response is okay + handle errors
-//     if (!res.ok){ throw new Error(`HTTP error! status: ${res.status}`) }
-
-//     // Apply .json method to response
-//     const data = await res.json();
-
-//     return data
-// }
-
-
-// const displayUsers = async () => {
-
-//     // called getData function and stored inside var: payload
-//     const my_payload = await getData();
-
-//     // set dataDisplay variable
-//     let dataDisplay = my_payload.map((object) => {
-//         // iterate through payload array object and extract data
-//         console.log(object)
-
-//         const { name, username } = object
-        
-//         return `
-//         <div class="container">
-//             <p>Name: ${name}</p>
-//             <p>Username: ${username}</p>
-//         </div>
-//         `
-//     });
-
-//     display_data.innerHTML = dataDisplay;
-// }
-
-// displayUsers();

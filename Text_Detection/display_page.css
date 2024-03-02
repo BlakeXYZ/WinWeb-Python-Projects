@@ -30,17 +30,13 @@ body {
     align-items: center;
     justify-content: center;
     transform-origin: left; /* Set the transform origin to the left */
-    margin-left: 10px;
+    margin: 0 20px 0 15px;
     width: 70%;
 }
 
 #search-input{
     width: 100%;
     padding: 5px 0 5px 5px;
-}
-
-#sort-container {
-    margin-left: 10px; /* Add margin for spacing */
 }
 
 /* Add spacing to the right of the "Sort By:" label */
