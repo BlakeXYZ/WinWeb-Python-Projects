@@ -16,7 +16,28 @@
 
 
 <body>
-    <h1>Hello</h1>
+
+    <div class="header row">
+
+        <div id="title">Card Seeker</div>
+
+        <div id="search-container">
+            <input id="search-input" type="text" placeholder="Search Card Name">
+        </div>
+
+        <div id="sort-container">
+            <label for="sort-dropdown">Sort By:</label>
+            <select id="sort-dropdown">
+                <option value="none">Default</option>
+                <option value="name">Name: A to Z</option>
+                <option value="usdPrice">Price: High to Low</option>
+                <option value="rarity">Rarity: High to Low</option>
+            </select>
+        </div>
+        
+    </div>
+    <br>
+    <br>
     <div id="display-data"></div>
     
 </body>

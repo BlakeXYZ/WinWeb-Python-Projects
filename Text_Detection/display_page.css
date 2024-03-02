@@ -6,8 +6,46 @@ body {
 
     font-family: Roboto, sans-serif;
     font-size: 14px;
-    margin: 0 50px 250px 50px; /* Adjust as needed */
+    margin: 0px 50px 250px 50px; /* Adjust as needed */
 
+}
+
+.header {
+    /* background-color: #111111; */
+    padding: 25px 0px 25px 0px; /* Adjust as needed */
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#title {
+    font-size: 18px;
+}
+
+#search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: left; /* Set the transform origin to the left */
+    margin-left: 10px;
+    width: 70%;
+}
+
+#search-input{
+    width: 100%;
+    padding: 5px 0 5px 5px;
+}
+
+#sort-container {
+    margin-left: 10px; /* Add margin for spacing */
+}
+
+/* Add spacing to the right of the "Sort By:" label */
+#sort-container label {
+    margin-right: 10px; /* Adjust as needed */
 }
 
 
@@ -18,16 +56,16 @@ body {
 }
 
 /* styles.css */
-.container {
+.card-container {
     position: relative; /* Required for absolute positioning */
     background-color: #141515;
-    margin: 0 0 50px 20px; /* Adjust as needed */
+    margin: 0 0 50px 0; /* Adjust as needed */
     display: flex;
     align-items: center; /* Center items vertically */
     border-radius: 8px; /* Rounded corners for the .container */
 }
 
-.container img {
+.card-container img {
     width: 200px; /* Set your desired width */
     height: auto; /* Maintain aspect ratio */
     border: 1px solid #ccc;
@@ -54,7 +92,7 @@ body {
 
 }
 
-.container:hover .text-container {
+.card-container:hover .text-container {
     height: auto;
     display: flex; /* Use flexbox */
     flex-direction: column; /* Stack items vertically */
@@ -63,17 +101,17 @@ body {
     transform: scale(1.1); /* Increase the size on hover */
 }
 
-.container:hover .text-container p {
+.card-container:hover .text-container p {
     margin-bottom: 1px; /* Set your desired vertical spacing */
 }
 
-.container:hover img {
+.card-container:hover img {
     transform: scale(1.1); /* Increase the size on hover */
     box-shadow: 0 0 25px 5px rgb(0, 0, 0); /* Add a drop shadow on hover */
 
 }
 
-.container img:hover {
+.card-container img:hover {
     transform: scale(1.1); /* Increase the size on hover */
     box-shadow: 0 0 25px 5px rgb(0, 0, 0); /* Add a drop shadow on hover */
 
