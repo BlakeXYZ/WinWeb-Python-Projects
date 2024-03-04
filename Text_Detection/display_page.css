@@ -44,20 +44,34 @@ body {
     margin-right: 10px; /* Adjust as needed */
 }
 
-
-#display-data {
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    justify-content: space-between; /* Adjust as needed */
+#sort-dropdown {
+    padding: 5px 0 5px 5px;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
 }
 
-/* styles.css */
+/* 
+#display-data {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+} */
+
+
+#display-data {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust as needed */
+    gap: 25px; /* Adjust the gap between items */
+}
+
 .card-container {
     position: relative; /* Required for absolute positioning */
-    background-color: #141515;
-    margin: 0 0 50px 0; /* Adjust as needed */
     display: flex;
+    flex-direction: column;
     align-items: center; /* Center items vertically */
+
     border-radius: 8px; /* Rounded corners for the .container */
 }
 
@@ -112,3 +126,5 @@ body {
     box-shadow: 0 0 25px 5px rgb(0, 0, 0); /* Add a drop shadow on hover */
 
 }
+
+
