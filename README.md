@@ -1,5 +1,22 @@
 <h3>A Sandbox of Python Projects built to automate Win OS and Web Tasks</h3>
 
+
+---
+
+[Gigabyte File Finder](https://github.com/BlakeXYZ/WinWeb-Python-Projects/tree/main/Text_Detection) - Detects text on Magic Cards (easyocr + cv2), stores in local Database, compares data against online Database and dynamically formats on Webpage. 
+<details open>
+<summary>Preview</summary>
+<br>
+
+<p align="center">
+<img src="">
+</p>
+
+<p align="center">
+<img src="">
+</p>
+</details>
+
 ---
 
 [Gigabyte File Finder](https://github.com/BlakeXYZ/WinWeb-Python-Projects/tree/main/Gigabyte_File_Finder) - helps you find bloated files inside Win OS by walking pasted Path and sharing clickable links to 1gb+ files
