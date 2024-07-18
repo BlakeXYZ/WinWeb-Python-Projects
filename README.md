@@ -3,7 +3,7 @@
 
 ---
 
-[Gigabyte File Finder](https://github.com/BlakeXYZ/WinWeb-Python-Projects/tree/main/Text_Detection) - Detects text on Magic Cards (easyocr + cv2), stores in local Database, compares data against online Database and dynamically formats on Webpage. 
+[Card Seeker](https://github.com/BlakeXYZ/WinWeb-Python-Projects/tree/main/Text_Detection) - Detects text on Magic Cards (easyocr + cv2), stores in local Database, compares data against online Database and dynamically formats on Webpage. 
 <details open>
 <summary>Preview</summary>
 <br>
