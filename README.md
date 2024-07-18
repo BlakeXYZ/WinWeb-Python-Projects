@@ -9,11 +9,11 @@
 <br>
 
 <p align="center">
-<img src="">
+<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/blob/main/Text_Detection/journal/web_gui_02.gif">
 </p>
 
 <p align="center">
-<img src="">
+<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/blob/main/Text_Detection/journal/computer_vision_card_01.png" width="400">
 </p>
 </details>
 
