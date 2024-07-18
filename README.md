@@ -9,7 +9,7 @@
 <br>
 
 <p align="center">
-<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/blob/main/Text_Detection/journal/web_gui_02.gif">
+<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/blob/main/Text_Detection/journal/web_gui_02.gif" width="700">
 </p>
 
 <p align="center">
@@ -26,7 +26,7 @@
 <br>
 
 <p align="center">
-<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/assets/37947050/506423f7-38a1-4033-a876-64afd477ff8a">
+<img src="https://github.com/BlakeXYZ/WinWeb-Python-Projects/assets/37947050/506423f7-38a1-4033-a876-64afd477ff8a" width="700">
 </p>
 </details>
 
