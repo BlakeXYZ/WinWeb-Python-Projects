@@ -3,7 +3,7 @@
 
 ---
 
-[Card Seeker](https://github.com/BlakeXYZ/WinWeb-Python-Projects/tree/main/Text_Detection) - Detects text on Photos of Magic Cards (easyocr + cv2), stores scanned info in local Database, compares data against online Database and dynamically formats on Webpage with search and sorting features.
+[Card Seeker](https://github.com/BlakeXYZ/WinWeb-Python-Projects/tree/main/Text_Detection) - Detects text on Photos of Magic Cards (easyocr + cv2), sorts and stores detected text in local Database, compares data against online Database and dynamically formats on Webpage with search and sorting features.
 <details open>
 <summary>Preview</summary>
 <br>
