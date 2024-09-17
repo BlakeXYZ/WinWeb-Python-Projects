@@ -1,6 +1,13 @@
-from my_app import app
+import sqlalchemy as sa
+import sqlalchemy.orm as so
+from my_app import app, db
+from my_app.models import User, Post
 
 import subprocess
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'sa': sa, 'so': so, 'db': db, 'User': User, 'Post': Post}
 
 def run_flask_app():
     # Command to run Flask
