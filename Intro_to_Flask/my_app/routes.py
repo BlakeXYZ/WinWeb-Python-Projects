@@ -1,15 +1,18 @@
-from flask import render_template, flash, redirect, url_for
-from flask_login import current_user, login_user, logout_user
+from flask import request, render_template, flash, redirect, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from urllib.parse import urlsplit
 import sqlalchemy as sa
 
 from my_app import app
 from my_app import db
 from my_app.forms import LoginForm
+from my_app.forms import RegistrationForm
 from my_app.models import User
 
 
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
     title = 'Index'
     user = {'username': 'BK'}
@@ -27,7 +30,7 @@ def index():
         }
     ]    
     
-    return render_template('index.html', title=title, user=user, posts=posts)
+    return render_template('index.html', title=title, posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -44,6 +47,11 @@ def login():
             return redirect(url_for('index'))
         
         login_user(user, remember=form.remember_me.data)    # if user is valid, login
+
+        next_page = request.args.get('next')                # redirect user to original URL after logging in
+        if not next_page or urlsplit(next_page).netloc != '':
+            next_page = url_for('index')
+
         return redirect(url_for('index'))
     
     return render_template('login.html', title='Sign In', form=form)
@@ -53,3 +61,20 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    
+    return render_template('register.html', title='Register', form=form)

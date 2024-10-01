@@ -2,7 +2,7 @@
 
 {% block index_content_block %}
 
-    <h1>Howdy, {{ user.username }}!</h1>
+    <h1>Howdy, {{ current_user.username }}!</h1>
 
     {% for post in posts %}
     <div>
