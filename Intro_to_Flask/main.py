@@ -7,7 +7,23 @@ import subprocess
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'sa': sa, 'so': so, 'db': db, 'User': User, 'Post': Post}
+    return {
+        'sa': sa, 
+        'so': so, 
+        'db': db, 
+        'User': User, 
+        'Post': Post,
+        'gau': get_all_users
+    }
+
+def get_all_users():
+    """Utility function to get all users from the database."""
+    query = sa.select(User)
+    users = db.session.scalars(query)
+    print('hello')
+    for u in users:
+        print(f'id: {u.id} username: {u.username} email: {u.email} last seen: {u.last_seen} about me info: {u.about_me}')
+
 
 def run_flask_app():
     # Command to run Flask

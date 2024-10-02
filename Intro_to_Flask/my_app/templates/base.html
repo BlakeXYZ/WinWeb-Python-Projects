@@ -11,14 +11,16 @@
 
         <div>
         Microblog: 
-        <a href="{{ url_for('index') }}">index.html</a>
+        <a href="{{ url_for('index') }}">index.html --- </a>
 
         {# is_anonymous property is one of the attributes that Flask-Login adds to user objects through the UserMixin class #}
         {% if current_user.is_anonymous %} 
-        <a href="{{ url_for('login') }}">login.html</a>
+        <a href="{{ url_for('login') }}">login.html --- </a>
         {% else %}
+        <a href="{{ url_for('user', username=current_user.username) }}">user.html / My Profile --- </a>
         <a href="{{ url_for('logout') }}">logout.html</a> 
         {% endif %}    
+
         </div>
 
         <hr>
