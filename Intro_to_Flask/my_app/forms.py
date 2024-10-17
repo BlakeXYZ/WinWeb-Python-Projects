@@ -48,5 +48,16 @@ class EditProfileForm(FlaskForm):
     about_me =      TextAreaField('About me', validators=[Length(min=0, max=140)])
     submit =        SubmitField('Submit')
 
+    def __init__(self, original_username, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.original_username = original_username
+
+    def validate_username(self, username):              # When you add any methods that match the pattern validate_<field_name>, WTForms takes those as custom validators and invokes them in addition to the stock validators
+        if username.data != self.original_username:
+            user = db.session.scalar(sa.select(User).where(
+                User.username == username.data))
+            if user is not None:
+                raise ValidationError(f"Sorry, username '{user.username}' is already taken!")
+                
         
 
