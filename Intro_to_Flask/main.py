@@ -13,7 +13,9 @@ def make_shell_context():
         'db': db, 
         'User': User, 
         'Post': Post,
-        'gau': get_all_users
+        'gau': get_all_users,
+        'trunc': truncate_tables
+
     }
 
 def get_all_users():
@@ -23,6 +25,14 @@ def get_all_users():
     print('hello')
     for u in users:
         print(f'id: {u.id} username: {u.username} email: {u.email} last seen: {u.last_seen} about me info: {u.about_me}')
+
+def truncate_tables():
+    """Utility function to truncate all tables in the database."""
+    meta = db.metadata
+    for table in reversed(meta.sorted_tables):
+        print(f'Truncating table {table}')
+        db.session.execute(table.delete())
+    db.session.commit()
 
 
 def run_flask_app():
