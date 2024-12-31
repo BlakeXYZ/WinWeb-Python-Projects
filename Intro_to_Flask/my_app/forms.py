@@ -58,8 +58,15 @@ class EditProfileForm(FlaskForm):
                 User.username == username.data))
             if user is not None:
                 raise ValidationError(f"Sorry, username '{user.username}' is already taken!")
-                
-        
+                       
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
+
+class PostForm(FlaskForm):
+    post = TextAreaField('Form to Post:', validators=[
+        DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField('Submit')  
+
+
+
 
